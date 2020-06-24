@@ -4,13 +4,8 @@ FROM magnusmoan/openfaas-dash-template-base:latest
 COPY --from=watchdog /fwatchdog /usr/bin/fwatchdog
 RUN chmod +x /usr/bin/fwatchdog
 
-ARG ADDITIONAL_PACKAGE
-# Alternatively use ADD https:// (which will not be cached by Docker builder)
-RUN apk add build-base
-RUN apk --no-cache add ${ADDITIONAL_PACKAGE}
-
 # Add non root user
-RUN addgroup -S app && adduser app -S -G app
+RUN addgroup --system app && adduser --system --group app
 RUN chown app /home/app
 
 USER app
