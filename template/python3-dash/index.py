@@ -1,6 +1,9 @@
 from flask import request
 from waitress import serve
 import sys
+sys.path.insert(0, "/home/app/function")
+
+from function.app import app
 
 
 @app.server.before_request
@@ -17,6 +20,4 @@ def fix_transfer_encoding():
 
 
 if __name__ == "__main__":
-    sys.path.insert(0, "/home/app/function")
-    from function.app import app
     serve(app.server, host="0.0.0.0", port=5000)
